@@ -1,0 +1,23 @@
+plugins {
+    id 'play'
+}
+
+dependencies { 
+    play    project(":thehiveBackend")
+    
+    play    group: 'com.typesafe.play', name: "play-ehcache_$scalaMajorMinorVersion", version: playVersion
+    play    group: 'com.typesafe.play', name: "play-ws_$scalaMajorMinorVersion", version: playVersion
+
+    play    group: 'net.codingwell', name: "scala-guice_$scalaMajorMinorVersion", version: '4.1.0'
+    play    group: 'org.cert-bdf', name: "elastic4play_$scalaMajorMinorVersion", version: '1.4.6'
+    play    group: 'org.reflections', name: "reflections", version: '0.9.11'
+
+
+    play    group: 'io.dropwizard.metrics', name: "metrics-core", version: '3.1.2'
+    play    group: 'io.dropwizard.metrics', name: "metrics-json", version: '3.1.2'
+    play    group: 'io.dropwizard.metrics', name: "metrics-jvm", version: '3.1.2'
+    play    group: 'io.dropwizard.metrics', name: "metrics-logback", version: '3.1.2'
+    play    group: 'io.dropwizard.metrics', name: "metrics-graphite", version: '3.1.2'
+    play    group: 'io.dropwizard.metrics', name: "metrics-ganglia", version: '3.1.2'
+    play    group: 'info.ganglia.gmetric4j', name: "gmetric4j", version: '1.0.10'
+}

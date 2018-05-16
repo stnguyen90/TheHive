@@ -1,0 +1,8 @@
+rootProject.name = 'TheHive'
+
+include 'thehiveBackend', 'thehiveMetrics', 'thehiveMisp', 'thehiveCortex'
+
+project(':thehiveBackend').projectDir = new File(settingsDir, 'thehive-backend')
+project(':thehiveMetrics').projectDir = new File(settingsDir, 'thehive-metrics')
+project(':thehiveMisp').projectDir = new File(settingsDir, 'thehive-misp')
+project(':thehiveCortex').projectDir = new File(settingsDir, 'thehive-cortex')

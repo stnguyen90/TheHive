@@ -1,0 +1,14 @@
+plugins {
+    id 'play'
+}
+
+dependencies { 
+    play    project(":thehiveBackend")
+    
+    play    group: 'com.typesafe.play', name: "play-ws_$scalaMajorMinorVersion", version: playVersion
+    play    group: 'com.typesafe.play', name: "play-ahc-ws_$scalaMajorMinorVersion", version: playVersion
+    play    group: 'com.typesafe.play', name: "play-guice_$scalaMajorMinorVersion", version: playVersion
+
+    play    group: 'org.cert-bdf', name: "elastic4play_$scalaMajorMinorVersion", version: '1.4.6'
+    play    group: 'net.lingala.zip4j', name: "zip4j", version: '1.3.2'
+}

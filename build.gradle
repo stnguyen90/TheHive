@@ -1,0 +1,142 @@
+plugins {
+    id 'play'
+    id 'com.github.jk1.dependency-license-report' version '0.9'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            name 'lightbend-maven-release'
+            url 'https://repo.lightbend.com/lightbend/maven-releases'
+        }
+        ivy {
+            name 'lightbend-ivy-release'
+            url 'https://repo.lightbend.com/lightbend/ivy-releases'
+            layout 'ivy'
+        }
+        maven {
+            name 'elastic'
+            url "https://artifacts.elastic.co/maven"
+        }
+    }
+
+    ext {
+        playVersion = '2.6.7'
+        scalaMajorMinorVersion = '2.12'
+        scalaFullVersion = "${scalaMajorMinorVersion}.4"
+    }
+}
+
+dependencies {
+    play project(":thehiveBackend")
+    play project(":thehiveMetrics")
+    play project(":thehiveMisp")
+    play project(":thehiveCortex")
+
+    play group: 'org.apache.logging.log4j', name: "log4j-to-slf4j", version: '2.9.1'
+}
+
+configurations.all {
+    exclude group: "org.apache.logging.log4j", module: "log4j-core"
+}
+
+subprojects {
+    model {
+        components {
+            play {
+                platform play: playVersion, scala: scalaMajorMinorVersion, java: '1.8'
+                injectedRoutesGenerator = true
+
+                binaries.all {
+                    tasks.withType(PlatformScalaCompile) {
+                        scalaCompileOptions.additionalParameters = [
+                            "-deprecation", // Emit warning and location for usages of deprecated APIs.
+                            "-feature", // Emit warning and location for usages of features that should be imported explicitly.
+                            "-unchecked", // Enable additional warnings where generated code depends on assumptions.
+                            //"-Xfatal-warnings", // Fail the compilation if there are any warnings.
+                            "-Xlint", // Enable recommended additional warnings.
+                            "-Ywarn-adapted-args", // Warn if an argument list is modified to match the receiver.
+                            "-Ywarn-dead-code", // Warn when dead code is identified.
+                            "-Ywarn-inaccessible", // Warn about inaccessible types in method signatures.
+                            "-Ywarn-nullary-override", // Warn when non-nullary overrides nullary, e.g. def foo() over def foo.
+                            "-Ywarn-numeric-widen" // Warn when numerics are widened.
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
+
+model {
+    components {
+        play { 
+            platform play: playVersion, scala: scalaMajorMinorVersion, java: '1.8'
+            injectedRoutesGenerator = true
+
+            binaries.all { 
+                binary -> binary.assets.addAssetDir project.file("ui/dist")
+            }
+        }
+    }
+
+    distributions {
+        playBinary {
+            contents {
+                from("README.md")
+            }
+        }
+    }
+}
+
+task gruntWireDep(type:Exec) {
+    workingDir 'ui'
+
+    println 'grunt wiredep...'
+
+    commandLine 'grunt', 'wiredep'
+}
+
+task yarnInstall(type:Exec) {
+    workingDir 'ui'
+    
+    println 'yarn --ignore-engines...'
+
+    commandLine 'yarn', '--ignore-engines'
+}
+
+task gruntBuild(type:Exec) {
+    workingDir 'ui'
+
+    println 'grunt build...'
+
+    commandLine 'grunt', 'build'
+}
+
+build.doLast {
+    tasks.gruntWireDep.execute()
+    tasks.yarnInstall.execute()
+    tasks.gruntBuild.execute()
+}
+
+import com.github.jk1.license.render.*
+
+licenseReport {
+    // Set custom report renderer, implementing ReportRenderer.
+    // Yes, you can write your own to support any format necessary.
+    renderers = [
+        new XmlReportRenderer(),
+        new SimpleHtmlReportRenderer(),
+        new CsvReportRenderer()
+    ]
+
+    // Select projects to examine for dependencies.
+    // Defaults to current project and all its subprojects
+    // projects = [project] + project.subprojects
+
+    // Adjust the configurations to use, e.g. for Android projects.
+    configurations = ['compile']
+    // Use 'ALL' to dynamically resolve all configurations:
+    // configurations = ALL
+}

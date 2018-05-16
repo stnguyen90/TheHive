@@ -1,0 +1,27 @@
+plugins {
+    id 'play'
+}
+
+dependencies { 
+    play    group: 'com.typesafe.play', name: "play-ehcache_$scalaMajorMinorVersion", version: playVersion
+    play    group: 'com.typesafe.play', name: "play-ws_$scalaMajorMinorVersion", version: playVersion
+    play    group: 'com.typesafe.play', name: "play-ahc-ws_$scalaMajorMinorVersion", version: playVersion
+    play    group: 'com.typesafe.play', name: "filters-helpers_$scalaMajorMinorVersion", version: playVersion
+    play    group: 'com.typesafe.play', name: "play-guice_$scalaMajorMinorVersion", version: playVersion
+
+    play    group: 'net.codingwell', name: "scala-guice_$scalaMajorMinorVersion", version: '4.1.0'
+    play    group: 'org.reflections', name: "reflections", version: '0.9.11'
+    play    group: 'net.lingala.zip4j', name: "zip4j", version: '1.3.2'
+    play    group: 'org.cert-bdf', name: "elastic4play_$scalaMajorMinorVersion", version: '1.4.6'
+}
+
+// model {
+//     components {
+//         play {
+//             tasks.withType(RoutesCompile) {
+//                 println additionalImports
+//                 additionalImports -= "controllers.Assets.Asset"
+//             }
+//         }
+//     }
+// }
