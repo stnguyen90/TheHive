@@ -116,4 +116,4 @@ DELETE   /api/dashboard/:dashboardId              controllers.DashboardCtrl.dele
 
 ->       /api/connector                           connectors.ConnectorRouter
 
-GET      /*file                                   controllers.AssetCtrl.get(file)
+GET      /*file                                   controllers.Assets.at(path="/public", file)
