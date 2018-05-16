@@ -1,0 +1,42 @@
+# If not set, defaults to the directory name of `source_path`
+name: 'TheHive'
+
+# Path is relative to git repository root
+# If not set, defaults to '.licenses'
+# cache_path: 'relative/path/to/cache'
+
+# Path is relative to git repository root and specifies the working directory when enumerating dependencies
+# Optional for single app configuration, required when specifying multiple apps
+# Defaults to current directory when running `licensed`
+source_path: './ui'
+
+# Sources of metadata
+# All sources will attempt to run unless explicitly disabled
+# sources:
+#   bower: true
+#   rubygem: false
+
+# Dependencies with these licenses are allowed by default.
+# allowed:
+#   - mit
+#   - apache-2.0
+#   - bsd-2-clause
+#   - bsd-3-clause
+#   - cc0-1.0
+
+# These dependencies are explicitly ignored.
+# ignored:
+#   rubygem:
+#     - some-internal-gem
+
+#   bower:
+#     - some-internal-package
+
+# These dependencies have been reviewed.
+# reviewed:
+#   rubygem:
+#     - bcrypt-ruby
+
+#   bower:
+#   - classlist # public domain
+#   - octicons
