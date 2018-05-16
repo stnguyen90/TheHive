@@ -1,6 +1,5 @@
 plugins {
     id 'play'
-    id 'com.github.jk1.dependency-license-report' version '0.9'
 }
 
 allprojects {
@@ -118,25 +117,4 @@ build.doLast {
     tasks.gruntWireDep.execute()
     tasks.yarnInstall.execute()
     tasks.gruntBuild.execute()
-}
-
-import com.github.jk1.license.render.*
-
-licenseReport {
-    // Set custom report renderer, implementing ReportRenderer.
-    // Yes, you can write your own to support any format necessary.
-    renderers = [
-        new XmlReportRenderer(),
-        new SimpleHtmlReportRenderer(),
-        new CsvReportRenderer()
-    ]
-
-    // Select projects to examine for dependencies.
-    // Defaults to current project and all its subprojects
-    // projects = [project] + project.subprojects
-
-    // Adjust the configurations to use, e.g. for Android projects.
-    configurations = ['compile']
-    // Use 'ALL' to dynamically resolve all configurations:
-    // configurations = ALL
 }
