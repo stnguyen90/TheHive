@@ -33,3 +33,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 /bin/
+
+# Bower
+ui/bower_components

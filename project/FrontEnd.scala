@@ -26,10 +26,8 @@ object FrontEnd extends AutoPlugin {
     frontendFiles := {
       val s = streams.value
       s.log.info("Preparing front-end for prod ...")
-      s.log.info("npm install")
-      Process("npm" :: "install" :: Nil, baseDirectory.value / "ui") ! s.log
-      s.log.info("bower install")
-      Process("bower" :: "install" :: Nil, baseDirectory.value / "ui") ! s.log
+      s.log.info("yarn --ignore-engines")
+      Process("yarn" :: "--ignore-engines" :: Nil, baseDirectory.value / "ui") ! s.log
       s.log.info("grunt build")
       Process("grunt" :: "build" :: Nil, baseDirectory.value / "ui") ! s.log
       val dir = baseDirectory.value / "ui" / "dist"
